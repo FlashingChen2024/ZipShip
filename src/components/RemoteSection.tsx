@@ -35,8 +35,8 @@ export function RemoteSection({
   setPassword,
   privateKeyPath,
   pickPrivateKey,
-  passphrase,
-  setPassphrase,
+  passphrase: _passphrase,
+  setPassphrase: _setPassphrase,
   remoteDir,
   setRemoteDir,
   hostOs,
@@ -55,34 +55,32 @@ export function RemoteSection({
         远程目标
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
-        <div className="space-y-4">
-          <div className="grid grid-cols-[1fr,80px] gap-4">
-            <div>
-              <label className="block mb-2 text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-1.5">
-                <Globe className="w-3 h-3 text-blue-500" /> 主机 (Host)
-              </label>
-              <input 
-                type="text" 
-                value={host}
-                onChange={e => setHost(e.target.value)}
-                placeholder="192.168.1.100"
-                className="w-full px-4 py-3 text-sm font-mono border border-border rounded-lg outline-none bg-surface-alt text-text focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder-muted/50"
-              />
-            </div>
-            <div>
-              <label className="block mb-2 text-xs font-semibold uppercase tracking-wider text-muted text-center">端口</label>
-              <input 
-                type="number"
-                value={port}
-                onChange={e => setPort(Number(e.target.value))}
-                className="w-full px-2 py-3 text-sm font-mono border border-border rounded-lg outline-none bg-surface-alt text-text text-center focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder-muted/50"
-              />
-            </div>
+      <div className="space-y-4 relative z-10">
+        {/* 主机、端口、用户名 - 响应式布局 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="sm:col-span-1 lg:col-span-1">
+            <label className="block mb-1.5 text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-1.5">
+              <Globe className="w-3 h-3 text-blue-500" /> 主机 (Host)
+            </label>
+            <input 
+              type="text" 
+              value={host}
+              onChange={e => setHost(e.target.value)}
+              placeholder="192.168.1.100"
+              className="w-full px-3 py-2 text-sm font-mono border border-border rounded-lg outline-none bg-surface-alt text-text focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder-muted/50"
+            />
           </div>
-          
           <div>
-            <label className="block mb-2 text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-1.5">
+            <label className="block mb-1.5 text-xs font-semibold uppercase tracking-wider text-muted">端口</label>
+            <input 
+              type="number"
+              value={port}
+              onChange={e => setPort(Number(e.target.value))}
+              className="w-full px-2 py-2 text-sm font-mono border border-border rounded-lg outline-none bg-surface-alt text-text text-center focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder-muted/50"
+            />
+          </div>
+          <div>
+            <label className="block mb-1.5 text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-1.5">
               <Terminal className="w-3 h-3 text-blue-500" /> 用户名
             </label>
             <input
@@ -90,35 +88,34 @@ export function RemoteSection({
               value={username}
               onChange={e => setUsername(e.target.value)}
               placeholder="root"
-              className="w-full px-4 py-3 text-sm font-mono border border-border rounded-lg outline-none bg-surface-alt text-text focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder-muted/50"
+              className="w-full px-3 py-2 text-sm font-mono border border-border rounded-lg outline-none bg-surface-alt text-text focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder-muted/50"
             />
           </div>
         </div>
 
-        <div className="space-y-4">
-          <div className="grid grid-cols-[1fr,auto] gap-4">
-            <div className="flex-1">
-              <label className="block mb-2 text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-1.5">
-                <Lock className="w-3 h-3 text-yellow-500" /> 认证方式
-              </label>
-              <div className="flex bg-surface-alt rounded-lg p-1 border border-border">
-                <button
-                  onClick={() => setAuthType('password')}
-                  className={`flex-1 py-1.5 text-xs font-medium rounded-md transition-all ${authType === 'password' ? 'bg-muted/20 text-text shadow-sm' : 'text-muted hover:text-text'}`}
-                >
-                  密码
-                </button>
-                <button
-                  onClick={() => setAuthType('key_file')}
-                  className={`flex-1 py-1.5 text-xs font-medium rounded-md transition-all ${authType === 'key_file' ? 'bg-muted/20 text-text shadow-sm' : 'text-muted hover:text-text'}`}
-                >
-                  私钥
-                </button>
-              </div>
+        {/* 认证方式 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label className="block mb-1.5 text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-1.5">
+              <Lock className="w-3 h-3 text-yellow-500" /> 认证方式
+            </label>
+            <div className="flex bg-surface-alt rounded-lg p-1 border border-border">
+              <button
+                onClick={() => setAuthType('password')}
+                className={`flex-1 py-1.5 text-xs font-medium rounded-md transition-all ${authType === 'password' ? 'bg-muted/20 text-text shadow-sm' : 'text-muted hover:text-text'}`}
+              >
+                密码
+              </button>
+              <button
+                onClick={() => setAuthType('key_file')}
+                className={`flex-1 py-1.5 text-xs font-medium rounded-md transition-all ${authType === 'key_file' ? 'bg-muted/20 text-text shadow-sm' : 'text-muted hover:text-text'}`}
+              >
+                私钥
+              </button>
             </div>
           </div>
 
-          <div className="h-[74px]">
+          <div className="h-[60px]">
             <AnimatePresence mode="wait">
               {authType === 'password' ? (
                 <motion.div
@@ -128,13 +125,13 @@ export function RemoteSection({
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <label className="block mb-2 text-xs font-semibold uppercase tracking-wider text-muted">密码</label>
+                  <label className="block mb-1.5 text-xs font-semibold uppercase tracking-wider text-muted">密码</label>
                   <input
                     type="password"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full px-4 py-3 text-sm font-mono border border-border rounded-lg outline-none bg-surface-alt text-text focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-all placeholder-muted/50"
+                    className="w-full px-3 py-2 text-sm font-mono border border-border rounded-lg outline-none bg-surface-alt text-text focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-all placeholder-muted/50"
                   />
                 </motion.div>
               ) : (
@@ -144,32 +141,22 @@ export function RemoteSection({
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.2 }}
-                  className="space-y-2"
                 >
-                  <label className="block mb-2 text-xs font-semibold uppercase tracking-wider text-muted">私钥路径 & 口令</label>
-                  <div className="flex gap-2">
-                    <div className="flex-1 flex shadow-sm rounded-lg overflow-hidden group/input focus-within:ring-2 focus-within:ring-yellow-500 transition-all">
-                      <input
-                        type="text"
-                        readOnly
-                        value={privateKeyPath || ''}
-                        placeholder="私钥路径"
-                        className="flex-1 px-4 py-3 text-sm font-mono border-y border-l border-border bg-surface-alt text-text outline-none placeholder-muted/50 w-full min-w-0"
-                      />
-                      <button 
-                        onClick={pickPrivateKey} 
-                        className="px-3 bg-surface-alt hover:bg-muted/10 border border-border text-muted hover:text-text transition-colors flex items-center justify-center"
-                      >
-                        <MoreHorizontal className="w-4 h-4" />
-                      </button>
-                    </div>
+                  <label className="block mb-1.5 text-xs font-semibold uppercase tracking-wider text-muted">私钥路径</label>
+                  <div className="flex shadow-sm rounded-lg overflow-hidden group/input focus-within:ring-2 focus-within:ring-yellow-500 transition-all">
                     <input
-                      type="password"
-                      value={passphrase}
-                      onChange={e => setPassphrase(e.target.value)}
-                      placeholder="口令 (可选)"
-                      className="w-1/3 px-4 py-3 text-sm font-mono border border-border rounded-lg outline-none bg-surface-alt text-text focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-all placeholder-muted/50"
+                      type="text"
+                      readOnly
+                      value={privateKeyPath || ''}
+                      placeholder="私钥路径"
+                      className="flex-1 px-3 py-2 text-sm font-mono border-y border-l border-border bg-surface-alt text-text outline-none placeholder-muted/50 min-w-0"
                     />
+                    <button 
+                      onClick={pickPrivateKey} 
+                      className="px-3 bg-surface-alt hover:bg-muted/10 border border-border text-muted hover:text-text transition-colors flex items-center justify-center shrink-0"
+                    >
+                      <MoreHorizontal className="w-4 h-4" />
+                    </button>
                   </div>
                 </motion.div>
               )}
@@ -177,8 +164,9 @@ export function RemoteSection({
           </div>
         </div>
 
-        <div className="col-span-1 md:col-span-2 space-y-2 pt-2 border-t border-border">
-          <label className="block mb-2 text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-1.5">
+        {/* 远程目录 */}
+        <div className="pt-2 border-t border-border">
+          <label className="block mb-1.5 text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-1.5">
             <FolderUp className="w-3 h-3 text-green-500" /> 远程目录
           </label>
           <div className="relative group/path">
@@ -190,13 +178,13 @@ export function RemoteSection({
                 if (!remoteDir.trim()) return;
                 const recommended = hostOs === 'windows' ? '\\' : '/';
                 if (remoteDir.endsWith(recommended)) return;
-                const ok = window.confirm(`建议以 “${recommended}” 结尾。是否自动补全？`);
+                const ok = window.confirm(`建议以 "${recommended}" 结尾。是否自动补全？`);
                 if (ok) setRemoteDir(remoteDir + recommended);
               }}
               placeholder={hostOs === 'windows' ? 'C:\\inetpub\\wwwroot\\' : '/var/www/html/'}
-              className="w-full px-4 py-3 text-sm font-mono border border-border rounded-lg outline-none bg-surface-alt text-text focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all placeholder-muted/50 pr-24"
+              className="w-full px-3 py-2 text-sm font-mono border border-border rounded-lg outline-none bg-surface-alt text-text focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all placeholder-muted/50 pr-20 sm:pr-24"
             />
-            <div className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover/path:opacity-100 transition-opacity">
+            <div className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover/path:opacity-100 transition-opacity hidden sm:block">
               <button
                 onClick={() => {
                   const recommended = hostOs === 'windows' ? '\\' : '/';

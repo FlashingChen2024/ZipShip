@@ -308,7 +308,7 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden bg-bg text-text font-sans selection:bg-accent selection:text-white relative transition-colors duration-300">
+    <div className="flex flex-col h-screen bg-bg text-text font-sans selection:bg-accent selection:text-white relative transition-colors duration-300">
       <div className="crt-overlay pointer-events-none fixed inset-0 z-50 opacity-10" />
       
       <OverwritePrompt 
@@ -326,7 +326,8 @@ export default function App() {
         onToggleTheme={() => setTheme(v => v === 'dark' ? 'light' : 'dark')}
       />
 
-      <main className="flex flex-col flex-1 w-full max-w-5xl gap-6 p-6 mx-auto overflow-y-auto pb-96 scrollbar-thin scrollbar-thumb-surface-alt scrollbar-track-transparent">
+      <main className="flex-1 w-full max-w-5xl mx-auto overflow-y-auto scrollbar-thin scrollbar-thumb-surface-alt scrollbar-track-transparent">
+        <div className="flex flex-col gap-4 p-4 sm:p-6 pb-[400px]">
         <ErrorBanner message={errorBanner} onClear={() => setErrorBanner('')} />
 
         <SettingsPanel 
@@ -359,6 +360,7 @@ export default function App() {
           hostOs={hostOs}
           canShip={canShip}
         />
+        </div>
       </main>
 
       <DeployButton 

@@ -23,28 +23,28 @@ export function DeployButton({
   const isError = status === 'Failed';
 
   return (
-    <div className="fixed bottom-24 left-0 right-0 z-30 px-6 max-w-4xl mx-auto w-full pointer-events-none flex justify-center">
-      <div className="w-full max-w-md pointer-events-auto shadow-2xl shadow-accent/20 rounded-2xl overflow-hidden bg-surface/80 backdrop-blur-md border border-border p-2">
-        <div className="flex items-center justify-between px-4 py-2 mb-2 text-xs font-mono text-muted uppercase tracking-wider border-b border-border">
+    <div className="fixed bottom-12 sm:bottom-14 left-0 right-0 z-30 px-4 sm:px-6 max-w-4xl mx-auto w-full pointer-events-none flex justify-center">
+      <div className="w-full max-w-xs sm:max-w-sm pointer-events-auto shadow-xl shadow-accent/20 rounded-lg sm:rounded-xl overflow-hidden bg-surface/95 backdrop-blur-md border border-border p-1.5 sm:p-2">
+        <div className="flex items-center justify-between px-3 sm:px-4 py-1.5 sm:py-2 mb-1.5 sm:mb-2 text-[10px] sm:text-xs font-mono text-muted uppercase tracking-wider border-b border-border">
           <span className={clsx(
-            "flex items-center gap-1.5 transition-colors duration-300",
+            "flex items-center gap-1 transition-colors duration-300 truncate",
             isSuccess ? "text-green-500" : isError ? "text-red-500" : "text-muted"
           )}>
-            {isSuccess ? <CheckCircle2 className="w-3.5 h-3.5" /> : null}
-            {status}
+            {isSuccess ? <CheckCircle2 className="w-3 h-3" /> : null}
+            <span className="truncate max-w-[80px] sm:max-w-[120px]">{status}</span>
           </span>
-          <span className="flex items-center gap-1.5 text-muted">
+          <span className="flex items-center gap-1 text-muted shrink-0">
             {version} <span className="text-text">&rarr;</span> <span className="text-accent">{nextVersion}</span>
           </span>
         </div>
         
         <motion.button
-          whileHover={!isShipping && canShip ? { scale: 1.02 } : {}}
-          whileTap={!isShipping && canShip ? { scale: 0.98 } : {}}
+          whileHover={!isShipping && canShip ? { scale: 1.01 } : {}}
+          whileTap={!isShipping && canShip ? { scale: 0.99 } : {}}
           onClick={onShip}
           disabled={isShipping || !canShip}
           className={clsx(
-            "w-full py-4 text-lg font-black text-white uppercase tracking-widest rounded-xl transition-all relative overflow-hidden group flex items-center justify-center gap-3 shadow-lg",
+            "w-full py-2.5 sm:py-3 text-sm sm:text-base font-bold text-white uppercase tracking-wider sm:tracking-widest rounded-lg sm:rounded-xl transition-all relative overflow-hidden group flex items-center justify-center gap-2 shadow-md",
             isShipping ? "bg-accent/80 cursor-wait" : 
             canShip ? "bg-accent hover:bg-orange-500 hover:shadow-accent/40 active:bg-orange-600" : 
             "bg-surface-alt text-muted cursor-not-allowed border border-border"
@@ -52,12 +52,13 @@ export function DeployButton({
         >
           {isShipping ? (
             <>
-              <Loader2 className="w-6 h-6 animate-spin" />
-              发布中...
+              <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" />
+              <span className="hidden sm:inline">发布中...</span>
+              <span className="sm:hidden">发布中</span>
             </>
           ) : (
             <>
-              <Rocket className={clsx("w-6 h-6 transition-transform duration-300", canShip && "group-hover:-translate-y-1 group-hover:translate-x-1")} />
+              <Rocket className={clsx("w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300", canShip && "group-hover:-translate-y-0.5 group-hover:translate-x-0.5")} />
               一键发布
             </>
           )}
