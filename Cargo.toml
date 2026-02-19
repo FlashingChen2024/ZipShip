@@ -1,0 +1,7 @@
+[workspace]
+resolver = "2"
+members = [
+  "crates/zipship-core",
+  "crates/zipship-cli",
+  "src-tauri",
+]

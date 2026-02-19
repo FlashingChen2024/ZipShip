@@ -1,0 +1,22 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "ZipShip",
+  "version": "0.1.0",
+  "identifier": "dev.zipship.app",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devUrl": "http://127.0.0.1:5173",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "ZipShip",
+        "width": 1000,
+        "height": 700,
+        "resizable": true
+      }
+    ]
+  }
+}

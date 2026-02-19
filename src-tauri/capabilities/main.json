@@ -1,0 +1,9 @@
+{
+  "identifier": "main",
+  "description": "主窗口能力：允许 IPC 基础能力与文件选择对话框。",
+  "windows": ["main"],
+  "permissions": ["core:default", "dialog:allow-open"],
+  "remote": {
+    "urls": ["http://127.0.0.1:*", "http://localhost:*"]
+  }
+}
