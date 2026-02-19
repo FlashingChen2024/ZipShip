@@ -3,13 +3,27 @@
 @tailwind utilities;
 
 :root {
+  /* Dark Mode (Default) */
   --color-bg: #0F172A;
   --color-surface: #1E293B;
+  --color-surface-alt: #020617;
   --color-accent: #F97316;
   --color-text: #F8FAFC;
   --color-muted: #94A3B8;
+  --color-border: #334155;
   --font-ui: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+}
+
+[data-theme="light"] {
+  /* Light Mode */
+  --color-bg: #F1F5F9;
+  --color-surface: #FFFFFF;
+  --color-surface-alt: #E2E8F0;
+  --color-accent: #EA580C;
+  --color-text: #0F172A;
+  --color-muted: #64748B;
+  --color-border: #CBD5E1;
 }
 
 body {
@@ -58,6 +72,14 @@ body {
   top: 0; left: 0; right: 0; bottom: 0;
   z-index: 9999;
   opacity: 0.15;
+}
+
+[data-theme="light"] .crt-overlay {
+  opacity: 0.05;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 0.05) 50%
+  );
 }
 
 @keyframes slideIn {

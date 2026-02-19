@@ -3,6 +3,14 @@
   "productName": "ZipShip",
   "version": "0.1.0",
   "identifier": "dev.zipship.app",
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/icon.png",
+      "icons/icon.ico"
+    ]
+  },
   "build": {
     "beforeDevCommand": "npm run dev",
     "beforeBuildCommand": "npm run build",

@@ -7,11 +7,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: '#0F172A',
-        surface: '#1E293B',
-        accent: '#F97316',
-        text: '#F8FAFC',
-        muted: '#94A3B8',
+        bg: 'var(--color-bg)',
+        surface: 'var(--color-surface)',
+        'surface-alt': 'var(--color-surface-alt)',
+        accent: 'var(--color-accent)',
+        text: 'var(--color-text)',
+        muted: 'var(--color-muted)',
+        border: 'var(--color-border)',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
